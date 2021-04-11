@@ -286,7 +286,7 @@ void AVLTree::FindEquilibriumPricePoint(float m, float c, float& equilibriumPric
         int qs = floor((t->price - c) / m);
         if (qs > qd)
         {
-            equilibriumPrice = t->price;
+            equilibriumPrice = v[i-1]->price;
             break;
         }
         
