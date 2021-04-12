@@ -352,19 +352,8 @@ int AVLTree::PrintMarketStatus(float m, float c, float pricePoint)
 {
     int qtyDemanded = FindQuantityDemanded(pricePoint);
     int qtySupplied = floor((pricePoint - c)/m);
-    int status = qtyDemanded - qtySupplied;
-    if (status < 0)
-    {
-        return -1;
-    }
-    else if (status > 0)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
+    int status = qtySupplied - qtyDemanded;
+    return status;
 }
 
 
