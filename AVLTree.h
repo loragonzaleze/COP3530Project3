@@ -12,6 +12,7 @@ class AVLTree
 private:
 	Node* root = nullptr;
 	int CalculateTreeHeight(Node* node);
+	int height(Node* n);
 	Node* RotateLeft(Node* node);
 	Node* RotateRight(Node* node);
 	Node* RotateLeftRight(Node* node);
@@ -23,7 +24,7 @@ private:
 public:
 	void LoadDataSet(float pricePoint);
 	int FindQuantityDemanded(float pricePoint);
-	void PrintMarketStatus(float m, float c, float pricePoint);
+	int PrintMarketStatus(float m, float c, float pricePoint);
 	void FindEquilibriumPricePoint(float m, float c, float& equilibriumPrice, int& equilibriumQuantity);
 };
 
