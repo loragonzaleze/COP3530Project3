@@ -1,25 +1,7 @@
 #include "AVLTree.h"
-int AVLTree::CalculateTreeHeight(Node* node)
-{
-    if (!node)
-    {
-        return 0;
-    }
-    int leftHeight = CalculateTreeHeight(node->left);
-    int rightHeight = CalculateTreeHeight(node->right);
-
-    if (leftHeight > rightHeight)
-    {
-        return(leftHeight + 1);
-    }
-    else
-    {
-        return(rightHeight + 1);
-    }
-}
 
 
-int AVLTree::height(Node* n)
+int AVLTree::height(TreeNode* n)
 {
     if (n == nullptr)
     {
@@ -29,10 +11,10 @@ int AVLTree::height(Node* n)
 }
 
 
-Node* AVLTree::RotateLeft(Node* node)
+TreeNode* AVLTree::RotateLeft(TreeNode* node)
 {
-    Node* grandchild = node->right->left;
-    Node* newParent = node->right;
+    TreeNode* grandchild = node->right->left;
+    TreeNode* newParent = node->right;
     newParent->left = node;
     node->right = grandchild;
     int l, r, m;
@@ -59,10 +41,10 @@ Node* AVLTree::RotateLeft(Node* node)
 }
 
 
-Node* AVLTree::RotateRight(Node* node)
+TreeNode* AVLTree::RotateRight(TreeNode* node)
 {
-    Node* grandchild = node->left->right;
-    Node* newParent = node->left;
+    TreeNode* grandchild = node->left->right;
+    TreeNode* newParent = node->left;
     newParent->right = node;
     node->left = grandchild;
     int l, r, m;
@@ -89,7 +71,7 @@ Node* AVLTree::RotateRight(Node* node)
 }
 
 
-Node* AVLTree::RotateLeftRight(Node* node)
+TreeNode* AVLTree::RotateLeftRight(TreeNode* node)
 {
     node->left = RotateLeft(node->left);
     node = RotateRight(node);
@@ -97,7 +79,7 @@ Node* AVLTree::RotateLeftRight(Node* node)
 }
 
 
-Node* AVLTree::RotateRightLeft(Node* node)
+TreeNode* AVLTree::RotateRightLeft(TreeNode* node)
 {
     node->right = RotateRight(node->right);
     node = RotateLeft(node);
@@ -105,14 +87,14 @@ Node* AVLTree::RotateRightLeft(Node* node)
 }
 
 
-Node* AVLTree::BalanceTheTree(Node* root, vector<Node*>& st)
+TreeNode* AVLTree::BalanceTheTree(TreeNode* root, vector<TreeNode*>& st)
 {
     for (int i = st.size() - 1; i >= 0; i--)
     {
 
-        Node* temp = st[i];
-        Node* lchild = temp->left;
-        Node* rchild = temp->right;
+        TreeNode* temp = st[i];
+        TreeNode* lchild = temp->left;
+        TreeNode* rchild = temp->right;
         int l = 0, r = 0;
         if (lchild)
         {
@@ -127,8 +109,8 @@ Node* AVLTree::BalanceTheTree(Node* root, vector<Node*>& st)
         int rightChildBalanceFactor = 0;
         if (temp->left)
         {
-            Node* lchild = temp->left->left;
-            Node* rchild = temp->left->right;
+            TreeNode* lchild = temp->left->left;
+            TreeNode* rchild = temp->left->right;
             l = 0;
             r = 0;
             if (lchild)
@@ -143,8 +125,8 @@ Node* AVLTree::BalanceTheTree(Node* root, vector<Node*>& st)
         }
         if (temp->right)
         {
-            Node* lchild = temp->right->left;
-            Node* rchild = temp->right->right;
+            TreeNode* lchild = temp->right->left;
+            TreeNode* rchild = temp->right->right;
             l = 0;
             r = 0;
             if (lchild)
@@ -182,9 +164,9 @@ Node* AVLTree::BalanceTheTree(Node* root, vector<Node*>& st)
         }
         else
         {
-            Node* unbalancedNode = st[i];
+            TreeNode* unbalancedNode = st[i];
             bool check = true;
-            Node* temp = st[i - 1];
+            TreeNode* temp = st[i - 1];
             if (temp->left->price == unbalancedNode->price)
             {
                 if (parentBalanceFactor == 2 && leftChildBalanceFactor == 1)
@@ -229,23 +211,23 @@ Node* AVLTree::BalanceTheTree(Node* root, vector<Node*>& st)
 }
 
 
-Node* AVLTree::Insert(Node* root, float pricePoint, vector<Node*>& st)
+TreeNode* AVLTree::Insert(TreeNode* root, float pricePoint, vector<TreeNode*>& st)
 {
-    Node* temp = root;
+    TreeNode* temp = root;
     if (temp)
     {
         st.push_back(temp);
     }
     if (!temp)
     {
-        Node* keyNode = new Node(pricePoint, 1, nullptr, nullptr);
+        TreeNode* keyNode = new TreeNode(pricePoint, 1, nullptr, nullptr);
         st.push_back(keyNode);
         return keyNode;
     }
 
     if (pricePoint < temp->price && !temp->left)
     {
-        Node* keyNode = new Node(pricePoint, 1, nullptr, nullptr);
+        TreeNode* keyNode = new TreeNode(pricePoint, 1, nullptr, nullptr);
         st.push_back(keyNode);
         temp->left = keyNode;
     }
@@ -257,7 +239,7 @@ Node* AVLTree::Insert(Node* root, float pricePoint, vector<Node*>& st)
 
     else if (pricePoint > temp->price && !temp->right)
     {
-        Node* keyNode = new Node(pricePoint, 1, nullptr, nullptr);
+        TreeNode* keyNode = new TreeNode(pricePoint, 1, nullptr, nullptr);
         st.push_back(keyNode);
         temp->right = keyNode;
     }
@@ -282,9 +264,9 @@ Node* AVLTree::Insert(Node* root, float pricePoint, vector<Node*>& st)
 }
 
 
-bool AVLTree::Search(Node* node, float pricePoint)
+bool AVLTree::Search(TreeNode* node, float pricePoint)
 {
-    Node* temp = node;
+    TreeNode* temp = node;
     while (temp)
     {
         if (pricePoint < temp->price)
@@ -305,7 +287,7 @@ bool AVLTree::Search(Node* node, float pricePoint)
 }
 
 
-void AVLTree::TraverseInorder(Node* node, vector<Node*>& v)
+void AVLTree::TraverseInorder(TreeNode* node, vector<TreeNode*>& v)
 {
     if (node)
     {
@@ -323,7 +305,7 @@ void AVLTree::LoadDataSet(float pricePoint)
     bool check = Search(root, pricePoint);
     if (!check)
     {
-        vector<Node*> st;
+        vector<TreeNode*> st;
         root = Insert(root,  pricePoint, st);
         root = BalanceTheTree(root, st);
     }
@@ -332,12 +314,12 @@ void AVLTree::LoadDataSet(float pricePoint)
 
 int AVLTree::FindQuantityDemanded(float pricePoint)
 {
-    vector<Node*> v;
+    vector<TreeNode*> v;
     TraverseInorder(root, v);
     int qtyDemanded = 0;
     for (int i = 0; i < v.size();i++)
     {
-        Node* t = v[i];
+        TreeNode* t = v[i];
         if (t->price >= pricePoint)
         {
             qtyDemanded = qtyDemanded + t->qty;
@@ -359,13 +341,13 @@ int AVLTree::PrintMarketStatus(float m, float c, float pricePoint)
 
 void AVLTree::FindEquilibriumPricePoint(float m, float c, float& equilibriumPrice, int& equilibriumQuantity)
 {
-    vector<Node*> v;
+    vector<TreeNode*> v;
     TraverseInorder(root, v);
     equilibriumPrice = 0;
     int qd = 0;
     for (int i = v.size() - 1; i >= 0; i--)
     {
-        Node* t = v[i];
+        TreeNode* t = v[i];
         qd = qd + t->qty;
         int qs = floor((t->price - c) / m);
         if (qd >= qs)

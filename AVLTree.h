@@ -3,24 +3,23 @@
 #include <vector>
 #include <string>
 #include <cmath>
-#include "Node.h"
+#include "TreeNode.h"
 
 using namespace std;
 
 class AVLTree
 {
 private:
-	Node* root = nullptr;
-	int CalculateTreeHeight(Node* node);
-	int height(Node* n);
-	Node* RotateLeft(Node* node);
-	Node* RotateRight(Node* node);
-	Node* RotateLeftRight(Node* node);
-	Node* RotateRightLeft(Node* node);
-	Node* BalanceTheTree(Node* root, vector<Node*>& st);
-	Node* Insert(Node* root, float pricePoint, vector<Node*>& st);
-	bool Search(Node* node, float pricePoint);
-	void TraverseInorder(Node* node, vector<Node*>& v);
+	TreeNode* root = nullptr;
+	int height(TreeNode* n);
+	TreeNode* RotateLeft(TreeNode* node);
+	TreeNode* RotateRight(TreeNode* node);
+	TreeNode* RotateLeftRight(TreeNode* node);
+	TreeNode* RotateRightLeft(TreeNode* node);
+	TreeNode* BalanceTheTree(TreeNode* root, vector<TreeNode*>& st);
+	TreeNode* Insert(TreeNode* root, float pricePoint, vector<TreeNode*>& st);
+	bool Search(TreeNode* node, float pricePoint);
+	void TraverseInorder(TreeNode* node, vector<TreeNode*>& v);
 public:
 	void LoadDataSet(float pricePoint);
 	int FindQuantityDemanded(float pricePoint);
