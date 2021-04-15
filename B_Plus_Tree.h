@@ -31,6 +31,7 @@ public:
     Node* findParent(Node* node, Node* target, float price);
     void recursiveInsert(Node* node, Node* prev, float price);
     void printLeaves(Node* node, Node* prev, float price);
+    Node* findNode(Node* node, Node* prev, float price);
 
 };
 
@@ -193,8 +194,6 @@ void B_Plus_Tree::recursiveInsert(Node *node, Node *prev, float price) {
     }
 
 }
-
-
 Node *B_Plus_Tree::insertNonFull(Node *node, Node *prev, float price) {
     node->prices.push_back(price);
     quantities[price] = 1;
@@ -210,6 +209,9 @@ vector<Node*>B_Plus_Tree::findInsertion(Node *node, Node *prev, float price) { /
 
     while(!currNode->leaf){ //finds place to insert node at
         for(x = 0; x < currNode->prices.size(); x++){
+            if(currNode->prices[x] == price && currNode->leaf){
+                return {currNode, prev};
+            }
             if(price < currNode->prices[x]){
                 if(x == 0 || x == 1 || x == 2){
                     prev = currNode;
@@ -228,6 +230,8 @@ vector<Node*>B_Plus_Tree::findInsertion(Node *node, Node *prev, float price) { /
     return {currNode, prev};
 }
 
+
+
 void B_Plus_Tree::printLeaves(Node *node, Node *prev, float price) {
     Node* currNode = node;
 
@@ -240,14 +244,42 @@ void B_Plus_Tree::printLeaves(Node *node, Node *prev, float price) {
         }
     }
     Node* itr = currNode;
-  /*  while(itr != nullptr){
-        for(int x = itr->prices.size() - 1; x > -1; x--)
-            cout << itr->prices[x] << " ";
-        itr = itr->next;
-    }*/
+
+
 
     cout << endl;
     }
+}
+
+Node *B_Plus_Tree::findNode(Node *node, Node *prev, float price) {
+    Node* currNode = node;
+    bool changed = false;
+
+    int x;
+
+    while(!currNode->leaf){ //finds place to insert node at
+        for(x = 0; x < currNode->prices.size(); x++){
+            if(currNode->prices[x] == price && currNode->leaf){
+                return currNode;
+            }
+            if(price < currNode->prices[x]){
+                if(x == 0 || x == 1 || x == 2){
+                    prev = currNode;
+                    currNode = currNode->children[x];
+                    changed = true;
+                    break;
+                }
+            }
+        }
+        if(!changed){
+            prev = currNode;
+            currNode = currNode->children[currNode->numChildren - 1];
+        }
+        changed = false;
+    }
+    if(currNode->prices[currNode->prices.size() - 1] < price)
+        return nullptr;
+    return currNode;
 }
 
 
@@ -255,6 +287,61 @@ void B_Plus_Tree::printLeaves(Node *node, Node *prev, float price) {
 
 
 
+#include <iostream>
+#include "B_Plus_Tree.h"
+
+
+int main() {
+
+    B_Plus_Tree tree(1);
+
+    for(int x = 2; x < 1001; x++)
+        tree.insert(x);
+
+    float targetPrice = 1400;
+    Node* target = tree.findNode(tree.root, nullptr, targetPrice);
+    if(target == nullptr)
+        cout << "not found" << endl;
+
+    Node* itr = target;
+    while(itr != nullptr){
+        for(int x = itr->prices.size() - 1; x > -1; x--)
+            if(itr->prices[x] <= targetPrice)
+                cout << itr->prices[x] << " ";
+        itr = itr->next;
+    }
+    cout << endl;
+
+
+
+
+
+    vector<float>& vals = tree.root->prices;
+    for(float x: vals){
+        cout << "ROOT: " << x << " " << tree.root->numChildren << endl;
+    }
+    vector<Node*> leaves = tree.root->children;
+
+    for(int x = 0; x < tree.root->numChildren; x++){
+        vector<float>& leaf = leaves[x]->prices;
+        for(float x: leaf){
+            cout << "2nd Level node " << x <<  endl;
+        }
+        cout << "new 2nd level node" << endl;
+        vector<Node*>& children = leaves.at(x)->children;
+        for(int y = 0; y < leaves.at(x)->numChildren; y++){
+            vector<float>& insideLeaf = children.at(y)->prices;
+            for(float j: insideLeaf)
+                cout << "  " << j << endl;
+            cout << " New Leaf " << endl;
+          }
+
+    }
+
+
+
+    return 0;
+}
 
 
 
