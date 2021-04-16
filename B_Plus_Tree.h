@@ -1,7 +1,11 @@
 #pragma once
 #include <vector>
 #include <unordered_map>
+#include <cmath>
 
+
+/**TODO: add quantities to each node. Instead of searching each time you add a node, instead search for the node, if the node is found along the way, simply add 1
+ * to its quantity.**/
 
 using namespace std;
 struct Node{
@@ -22,6 +26,8 @@ class B_Plus_Tree {
 
 public:
     Node* root;
+    int unique;
+    int dup = 0;
 
     void insert(float price);
     B_Plus_Tree(float price);
@@ -38,7 +44,7 @@ public:
 
 B_Plus_Tree::B_Plus_Tree(float price) {
     Node* newRoot = new Node();
-
+    unique = 0;
     newRoot->prices.push_back(price);
     newRoot->leaf = true;
     root = newRoot;
@@ -53,16 +59,25 @@ void B_Plus_Tree::insert(float price) {
         root = newRoot;
         return;
     }
-    if(quantities.find(price) != quantities.end()){
-        quantities[price]++;
+    /*if(quantities.find(price) != quantities.end()){
+        dup++;
         return;
-    }
+    }*/
+
+
+
     Node* currNode = root;
     Node* prev = new Node();
 
     vector<Node*> returned = findInsertion(currNode, prev, price);
     currNode = returned[0];
     prev = returned[1];
+    if(currNode == nullptr){
+        dup++;
+        return;
+    }
+    unique++;
+
 
     if(currNode->prices.size() < maxKeys){
         insertNonFull(currNode, prev, price); // doone
@@ -121,7 +136,6 @@ Node *B_Plus_Tree::insertFull(Node *node, Node *prev, float price) {
         recursiveInsert(newChild, prev, newChild->prices[0]);
     }
 
-
     return node;
 
 }
@@ -130,7 +144,7 @@ void B_Plus_Tree::recursiveInsert(Node *node, Node *prev, float price) {
     if(prev->prices.size() < maxKeys){ //if parent is not full
         int pos = 0;
         //find where to place node inside node parent node
-        while(price > prev->prices[pos] && pos < prev->prices.size())
+        while(pos < prev->prices.size() && price > prev->prices[pos])
             pos++;
         prev->prices.push_back(price);
         sort(prev->prices.begin(), prev->prices.end());
@@ -151,7 +165,7 @@ void B_Plus_Tree::recursiveInsert(Node *node, Node *prev, float price) {
 
         int pos = 0;
         //find where to place node inside node parent node
-        while(price > prev->prices[pos] && pos < prev->prices.size())
+        while(pos < prev->prices.size() && price > prev->prices[pos])
             pos++;
 
         vector<Node*> children;
@@ -169,7 +183,10 @@ void B_Plus_Tree::recursiveInsert(Node *node, Node *prev, float price) {
         prev->prices.push_back(unsplitNode[1]);
         prev->leaf = false;
 
-        newNode->prices.push_back(price);
+        if(price < unsplitNode[mid])
+            newNode->prices.push_back(unsplitNode[unsplitNode.size() - 1]); //helps with descending order.
+        else
+            newNode->prices.push_back(price);
         newNode->numChildren = 2;
         newNode->children[0] = children[children.size() - 2];
         newNode->children[1] = children[children.size() - 1];
@@ -201,7 +218,12 @@ Node *B_Plus_Tree::insertNonFull(Node *node, Node *prev, float price) {
     return node;
 }
 
-vector<Node*>B_Plus_Tree::findInsertion(Node *node, Node *prev, float price) { //remember to cite this
+bool compare_float(float x, float y, float epsilon = 0.01f){ //remember to cite this
+    if(fabs(x - y) < epsilon)
+        return true; //they are same
+    return false; //they are not same
+}
+vector<Node*>B_Plus_Tree::findInsertion(Node *node, Node *prev, float price) {
     Node* currNode = node;
     bool changed = false;
 
@@ -210,7 +232,8 @@ vector<Node*>B_Plus_Tree::findInsertion(Node *node, Node *prev, float price) { /
     while(!currNode->leaf){ //finds place to insert node at
         for(x = 0; x < currNode->prices.size(); x++){
             if(currNode->prices[x] == price && currNode->leaf){
-                return {currNode, prev};
+            //    cout << "here" << endl;
+                return {nullptr, nullptr}; //TODO: if there is duplicate value just add 1
             }
             if(price < currNode->prices[x]){
                 if(x == 0 || x == 1 || x == 2){
@@ -227,6 +250,14 @@ vector<Node*>B_Plus_Tree::findInsertion(Node *node, Node *prev, float price) { /
         }
         changed = false;
     }
+
+
+    for(int k = 0; k < currNode->prices.size(); k++){
+        if(compare_float(currNode->prices[k], price, 0.01f)){
+            return{nullptr, nullptr};
+        }
+    }
+
     return {currNode, prev};
 }
 
@@ -245,9 +276,7 @@ void B_Plus_Tree::printLeaves(Node *node, Node *prev, float price) {
     }
     Node* itr = currNode;
 
-
-
-    cout << endl;
+        cout << endl;
     }
 }
 
@@ -287,61 +316,6 @@ Node *B_Plus_Tree::findNode(Node *node, Node *prev, float price) {
 
 
 
-#include <iostream>
-#include "B_Plus_Tree.h"
-
-
-int main() {
-
-    B_Plus_Tree tree(1);
-
-    for(int x = 2; x < 1001; x++)
-        tree.insert(x);
-
-    float targetPrice = 1400;
-    Node* target = tree.findNode(tree.root, nullptr, targetPrice);
-    if(target == nullptr)
-        cout << "not found" << endl;
-
-    Node* itr = target;
-    while(itr != nullptr){
-        for(int x = itr->prices.size() - 1; x > -1; x--)
-            if(itr->prices[x] <= targetPrice)
-                cout << itr->prices[x] << " ";
-        itr = itr->next;
-    }
-    cout << endl;
-
-
-
-
-
-    vector<float>& vals = tree.root->prices;
-    for(float x: vals){
-        cout << "ROOT: " << x << " " << tree.root->numChildren << endl;
-    }
-    vector<Node*> leaves = tree.root->children;
-
-    for(int x = 0; x < tree.root->numChildren; x++){
-        vector<float>& leaf = leaves[x]->prices;
-        for(float x: leaf){
-            cout << "2nd Level node " << x <<  endl;
-        }
-        cout << "new 2nd level node" << endl;
-        vector<Node*>& children = leaves.at(x)->children;
-        for(int y = 0; y < leaves.at(x)->numChildren; y++){
-            vector<float>& insideLeaf = children.at(y)->prices;
-            for(float j: insideLeaf)
-                cout << "  " << j << endl;
-            cout << " New Leaf " << endl;
-          }
-
-    }
-
-
-
-    return 0;
-}
 
 
 
