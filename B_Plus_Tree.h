@@ -388,6 +388,77 @@ Node *B_Plus_Tree::findNode(Node *node, Node *prev, float price) {
 
 
 
+#include <iostream>
+#include <fstream>
+#include <unordered_set>
+#include "B_Plus_Tree.h"
+#include "B_Plus_Tree_int.h"
+#include <string>
+
+
+int main() {
+
+    B_Plus_Tree b(42);
+    unordered_set<string> uniqueVals;
+    vector<float> sortedPrices;
+
+
+
+    string filename = "Invisible_Ink_Printer.csv";
+    ifstream file(filename);
+    if (file.is_open())
+    {
+        float x;
+        string s;
+        while (getline(file, s))
+        {
+            x = stof(s);
+            uniqueVals.insert(s);
+            sortedPrices.push_back(x);
+            //b.insert(x);
+        }
+    }
+    sort(sortedPrices.begin(), sortedPrices.end());
+    for(float x: sortedPrices)
+        b.insert(x);
+
+    cout << "unique float vals: " << uniqueVals.size() << endl;
+    cout <<   " Unique tree float values: " << b.unique << endl;
+    cout << " duplicate tree float values: " << b.dup << endl;
+
+    Node* target = b.findNode(b.root, nullptr, 899.99f);
+    int count = 0;
+
+    Node* itr = target;
+    while(itr != nullptr){
+        for(int x = itr->prices.size() - 1; x > -1; x--){
+            cout << itr->prices[x] << " ";
+            count++;
+
+        }
+
+        itr = itr->next;
+    }
+    cout << endl;
+    cout << "COUNT: " << count << endl;
+
+    
+cout << "unique float vals: " << uniqueVals.size() << endl;
+cout <<   " Unique tree float values: " << b.unique << endl;
+cout << " duplicate tree float values: " << b.dup << endl;
+
+
+
+
+
+    /**correct count number should be: 57109**/
+    //TODO: add a quantity, handle duplicate values, fix error if node is inserted to left, make a print leaf, add counter to print leaf
+
+
+
+    return 0;
+}
+
 
 
 
