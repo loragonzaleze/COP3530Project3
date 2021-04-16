@@ -41,7 +41,6 @@ public:
 
 };
 
-
 B_Plus_Tree::B_Plus_Tree(float price) {
     Node* newRoot = new Node();
     unique = 0;
@@ -106,7 +105,6 @@ Node *B_Plus_Tree::findParent(Node* node, Node* target, float price) {
     return parent;
 } //remember to cite this
 
-
 Node *B_Plus_Tree::insertFull(Node *node, Node *prev, float price) {
     Node* newChild = new Node();
     int mid = (node->prices.size() + 1) / 2; //splits nodes
@@ -130,7 +128,6 @@ Node *B_Plus_Tree::insertFull(Node *node, Node *prev, float price) {
         newRoot->children[0] = node;
         newRoot->children[1] = newChild;
         root = newRoot;
-
     }
     else{
         recursiveInsert(newChild, prev, newChild->prices[0]);
@@ -152,6 +149,12 @@ void B_Plus_Tree::recursiveInsert(Node *node, Node *prev, float price) {
         prev->children.pop_back();
         prev->numChildren++;
         prev->leaf = false;
+        if(pos + 1 == 1 && prev->children[pos + 2] != nullptr){
+            prev->children[pos + 2]->next = prev->children[pos + 1];
+        }
+        else if(pos + 1 == 2 && prev->children[pos + 2] != nullptr){
+            prev->children[pos + 2]->next = prev->children[pos + 1];
+        }
     }
     else{
 
@@ -168,9 +171,12 @@ void B_Plus_Tree::recursiveInsert(Node *node, Node *prev, float price) {
         while(pos < prev->prices.size() && price > prev->prices[pos])
             pos++;
 
+
         vector<Node*> children;
         children = prev->children;
         children.insert(children.begin() + pos + 1, node); //inserts nodes in correct spot
+
+        //determine where to point:
 
         prev->children = {nullptr, nullptr, nullptr, nullptr};
         for(int k = 0; k < 3; k++){
@@ -179,14 +185,24 @@ void B_Plus_Tree::recursiveInsert(Node *node, Node *prev, float price) {
         prev->numChildren = 3;
         prev->prices.clear();
 
+        if(pos + 1 == 1 && prev->children[pos + 2] != nullptr){
+            prev->children[pos + 2]->next = prev->children[pos + 1];
+        }
+        else if(pos + 1 == 2 && prev->children[pos + 2] != nullptr){
+            prev->children[pos + 2]->next = prev->children[pos + 1];
+        }
+
         prev->prices.push_back(unsplitNode[0]);
         prev->prices.push_back(unsplitNode[1]);
         prev->leaf = false;
 
         if(price < unsplitNode[mid])
-            newNode->prices.push_back(unsplitNode[unsplitNode.size() - 1]); //helps with descending order.
+            newNode->prices.push_back(unsplitNode[unsplitNode.size() - 1]); //if child is to the left of mid
+
+        else if(price == unsplitNode[mid])
+            newNode->prices.push_back(unsplitNode[mid + 1]); //if child is mid
         else
-            newNode->prices.push_back(price);
+            newNode->prices.push_back(price); //if child is to the right of mid
         newNode->numChildren = 2;
         newNode->children[0] = children[children.size() - 2];
         newNode->children[1] = children[children.size() - 1];
@@ -211,6 +227,7 @@ void B_Plus_Tree::recursiveInsert(Node *node, Node *prev, float price) {
     }
 
 }
+
 Node *B_Plus_Tree::insertNonFull(Node *node, Node *prev, float price) {
     node->prices.push_back(price);
     quantities[price] = 1;
@@ -223,6 +240,7 @@ bool compare_float(float x, float y, float epsilon = 0.01f){ //remember to cite 
         return true; //they are same
     return false; //they are not same
 }
+
 vector<Node*>B_Plus_Tree::findInsertion(Node *node, Node *prev, float price) {
     Node* currNode = node;
     bool changed = false;
@@ -231,10 +249,6 @@ vector<Node*>B_Plus_Tree::findInsertion(Node *node, Node *prev, float price) {
 
     while(!currNode->leaf){ //finds place to insert node at
         for(x = 0; x < currNode->prices.size(); x++){
-            if(currNode->prices[x] == price && currNode->leaf){
-            //    cout << "here" << endl;
-                return {nullptr, nullptr}; //TODO: if there is duplicate value just add 1
-            }
             if(price < currNode->prices[x]){
                 if(x == 0 || x == 1 || x == 2){
                     prev = currNode;
@@ -251,17 +265,17 @@ vector<Node*>B_Plus_Tree::findInsertion(Node *node, Node *prev, float price) {
         changed = false;
     }
 
+    int priceAsInt = (int)(100 * price + 0.5);
 
     for(int k = 0; k < currNode->prices.size(); k++){
-        if(compare_float(currNode->prices[k], price, 0.01f)){
+        int currPrice = (int)(100 * currNode->prices[k] + 0.5);
+        if(priceAsInt == currPrice){
             return{nullptr, nullptr};
         }
     }
 
     return {currNode, prev};
 }
-
-
 
 void B_Plus_Tree::printLeaves(Node *node, Node *prev, float price) {
     Node* currNode = node;
@@ -275,7 +289,6 @@ void B_Plus_Tree::printLeaves(Node *node, Node *prev, float price) {
         }
     }
     Node* itr = currNode;
-
         cout << endl;
     }
 }
@@ -285,7 +298,6 @@ Node *B_Plus_Tree::findNode(Node *node, Node *prev, float price) {
     bool changed = false;
 
     int x;
-
     while(!currNode->leaf){ //finds place to insert node at
         for(x = 0; x < currNode->prices.size(); x++){
             if(currNode->prices[x] == price && currNode->leaf){
@@ -293,7 +305,6 @@ Node *B_Plus_Tree::findNode(Node *node, Node *prev, float price) {
             }
             if(price < currNode->prices[x]){
                 if(x == 0 || x == 1 || x == 2){
-                    prev = currNode;
                     currNode = currNode->children[x];
                     changed = true;
                     break;
@@ -301,7 +312,6 @@ Node *B_Plus_Tree::findNode(Node *node, Node *prev, float price) {
             }
         }
         if(!changed){
-            prev = currNode;
             currNode = currNode->children[currNode->numChildren - 1];
         }
         changed = false;
