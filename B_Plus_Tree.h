@@ -38,6 +38,7 @@ public:
     void recursiveInsert(Node* node, Node* prev, float price);
     void printLeaves(Node* node, Node* prev, float price);
     Node* findNode(Node* node, Node* prev, float price);
+    Node* determineConnection(Node* node, Node* prev, float price);
 
 };
 
@@ -105,6 +106,8 @@ Node *B_Plus_Tree::findParent(Node* node, Node* target, float price) {
     return parent;
 } //remember to cite this
 
+//TODO: write code that connects nodes from 2 diffretent branches
+
 Node *B_Plus_Tree::insertFull(Node *node, Node *prev, float price) {
     Node* newChild = new Node();
     int mid = (node->prices.size() + 1) / 2; //splits nodes
@@ -118,6 +121,26 @@ Node *B_Plus_Tree::insertFull(Node *node, Node *prev, float price) {
     copy(unsplitNode.begin(), unsplitNode.begin() + mid, back_inserter(node->prices));
     copy(unsplitNode.begin() + mid, unsplitNode.end(), back_inserter(newChild->prices));
     newChild->next = node;
+
+    int pos = 0;
+    //find where to place node inside node parent node
+    while(pos < prev->prices.size() && price > prev->prices[pos])
+        pos++;
+
+
+    //where to write code to connect two nodes from 2 different branches:
+    Node* find;
+    if(pos == 3){
+        for(int k = 0; k < 1000; k++){
+            float add = k / 100;
+            find = findNode(root, prev, newChild->prices.back() + add);
+            if(find != nullptr){
+                find->next = newChild;
+                break;
+            }
+        }
+    }
+
 
 
     if(node == root){
@@ -137,6 +160,25 @@ Node *B_Plus_Tree::insertFull(Node *node, Node *prev, float price) {
 
 }
 
+Node* B_Plus_Tree::determineConnection(Node *node, Node *prev, float price) {
+    Node* grandFather = findParent(root, prev, price);
+    if(grandFather != nullptr){
+        int k = 0;
+        for(; k < grandFather->numChildren; k++)
+            if(grandFather->children[k] == prev)
+                break;
+
+        if(k == grandFather->numChildren - 1){
+            determineConnection(nullptr, grandFather, price);
+        }
+        else{
+            return grandFather;
+        }
+    }
+    return nullptr;
+}
+
+
 void B_Plus_Tree::recursiveInsert(Node *node, Node *prev, float price) {
     if(prev->prices.size() < maxKeys){ //if parent is not full
         int pos = 0;
@@ -149,11 +191,14 @@ void B_Plus_Tree::recursiveInsert(Node *node, Node *prev, float price) {
         prev->children.pop_back();
         prev->numChildren++;
         prev->leaf = false;
+
         if(pos + 1 == 1 && prev->children[pos + 2] != nullptr){
             prev->children[pos + 2]->next = prev->children[pos + 1];
         }
         else if(pos + 1 == 2 && prev->children[pos + 2] != nullptr){
             prev->children[pos + 2]->next = prev->children[pos + 1];
+        }
+        else if((pos + 1 == 1 || pos + 1 == 2) && prev->children[pos + 2] == nullptr){
         }
     }
     else{
@@ -185,12 +230,9 @@ void B_Plus_Tree::recursiveInsert(Node *node, Node *prev, float price) {
         prev->numChildren = 3;
         prev->prices.clear();
 
-        if(pos + 1 == 1 && prev->children[pos + 2] != nullptr){
-            prev->children[pos + 2]->next = prev->children[pos + 1];
-        }
-        else if(pos + 1 == 2 && prev->children[pos + 2] != nullptr){
-            prev->children[pos + 2]->next = prev->children[pos + 1];
-        }
+        //Assign next pointers to children;
+        prev->children[1]->next = prev->children[0];
+        prev->children[2]->next = prev->children[1];
 
         prev->prices.push_back(unsplitNode[0]);
         prev->prices.push_back(unsplitNode[1]);
@@ -203,10 +245,25 @@ void B_Plus_Tree::recursiveInsert(Node *node, Node *prev, float price) {
             newNode->prices.push_back(unsplitNode[mid + 1]); //if child is mid
         else
             newNode->prices.push_back(price); //if child is to the right of mid
+
         newNode->numChildren = 2;
         newNode->children[0] = children[children.size() - 2];
         newNode->children[1] = children[children.size() - 1];
         newNode->leaf = false;
+
+        newNode->children[1]->next = newNode->children[0];
+     //   newNode->children[0]->next = node;
+
+        if(pos + 1 == 1 && prev->children[pos + 2] != nullptr){
+            prev->children[pos + 2]->next = prev->children[pos + 1];
+        }
+        else if(pos + 1 == 2 && prev->children[pos + 2] != nullptr){
+            prev->children[pos + 2]->next = prev->children[pos + 1];
+        }
+        else if((pos + 1 == 1 || pos + 1 == 2) && prev->children[pos + 2] == nullptr){
+            newNode->children[0]->next = node;
+        }
+
 
         if(prev == root){
             Node* newRoot = new Node();
@@ -220,10 +277,6 @@ void B_Plus_Tree::recursiveInsert(Node *node, Node *prev, float price) {
         else{
             recursiveInsert(newNode, findParent(root, prev, val), val);
         }
-
-
-
-
     }
 
 }
@@ -289,7 +342,6 @@ void B_Plus_Tree::printLeaves(Node *node, Node *prev, float price) {
         }
     }
     Node* itr = currNode;
-        cout << endl;
     }
 }
 
@@ -318,8 +370,18 @@ Node *B_Plus_Tree::findNode(Node *node, Node *prev, float price) {
     }
     if(currNode->prices[currNode->prices.size() - 1] < price)
         return nullptr;
+
+    int priceAsInt = (int)(100 * price + 0.5);
+
+    for(int k = 0; k < currNode->prices.size(); k++){
+        int currPrice = (int)(100 * currNode->prices[k] + 0.5);
+        if(priceAsInt == currPrice){
+            return currNode;
+        }
+    }
     return currNode;
 }
+
 
 
 
