@@ -1,6 +1,6 @@
 #include "AVLTree.h"
 
-
+//Function for getting the height of a node 
 int AVLTree::height(TreeNode* n)
 {
     if (n == nullptr)
@@ -11,6 +11,7 @@ int AVLTree::height(TreeNode* n)
 }
 
 
+//Funtion to perform Left Rotation
 TreeNode* AVLTree::RotateLeft(TreeNode* node)
 {
     TreeNode* grandchild = node->right->left;
@@ -41,6 +42,7 @@ TreeNode* AVLTree::RotateLeft(TreeNode* node)
 }
 
 
+//Funtion to perform Right Rotation
 TreeNode* AVLTree::RotateRight(TreeNode* node)
 {
     TreeNode* grandchild = node->left->right;
@@ -71,6 +73,7 @@ TreeNode* AVLTree::RotateRight(TreeNode* node)
 }
 
 
+//Funtion to perform Left Right Rotation
 TreeNode* AVLTree::RotateLeftRight(TreeNode* node)
 {
     node->left = RotateLeft(node->left);
@@ -79,6 +82,7 @@ TreeNode* AVLTree::RotateLeftRight(TreeNode* node)
 }
 
 
+//Funtion to perform Right Left Rotation
 TreeNode* AVLTree::RotateRightLeft(TreeNode* node)
 {
     node->right = RotateRight(node->right);
@@ -87,6 +91,7 @@ TreeNode* AVLTree::RotateRightLeft(TreeNode* node)
 }
 
 
+//Function to balance the tree
 TreeNode* AVLTree::BalanceTheTree(TreeNode* root, vector<TreeNode*>& st)
 {
     for (int i = st.size() - 1; i >= 0; i--)
@@ -211,6 +216,7 @@ TreeNode* AVLTree::BalanceTheTree(TreeNode* root, vector<TreeNode*>& st)
 }
 
 
+//Function to Insert a new value into the tree
 TreeNode* AVLTree::Insert(TreeNode* root, float pricePoint, vector<TreeNode*>& st)
 {
     TreeNode* temp = root;
@@ -264,6 +270,7 @@ TreeNode* AVLTree::Insert(TreeNode* root, float pricePoint, vector<TreeNode*>& s
 }
 
 
+//Function to perform a Search operation on the AVL tree
 bool AVLTree::Search(TreeNode* node, float pricePoint)
 {
     TreeNode* temp = node;
@@ -287,6 +294,7 @@ bool AVLTree::Search(TreeNode* node, float pricePoint)
 }
 
 
+//Function to perform inorder traversal
 void AVLTree::TraverseInorder(TreeNode* node, vector<TreeNode*>& v)
 {
     if (node)
@@ -299,7 +307,9 @@ void AVLTree::TraverseInorder(TreeNode* node, vector<TreeNode*>& v)
 
 
 
-
+//Function to load an element into the data structure
+//Adds a new key if it is an unique value and sets the corresponding qty to 1
+//If it is a duplicate value, it increments the corresponding quantity for the price point
 void AVLTree::LoadDataSet(float pricePoint)
 {
     bool check = Search(root, pricePoint);
@@ -312,6 +322,7 @@ void AVLTree::LoadDataSet(float pricePoint)
 }
 
 
+//Function to find the Quantity demanded for a particular price point by traversing through the elements
 int AVLTree::FindQuantityDemanded(float pricePoint)
 {
     vector<TreeNode*> v;
@@ -330,6 +341,7 @@ int AVLTree::FindQuantityDemanded(float pricePoint)
 }
 
 
+//Function to find the Market Status with the given constraints
 int AVLTree::PrintMarketStatus(float m, float c, float pricePoint)
 {
     int qtyDemanded = FindQuantityDemanded(pricePoint);
@@ -339,6 +351,7 @@ int AVLTree::PrintMarketStatus(float m, float c, float pricePoint)
 }
 
 
+//Function to find the Equilibrium Price and Equilibrium Quantity by traversing through the elements in a descending order
 void AVLTree::FindEquilibriumPricePoint(float m, float c, float& equilibriumPrice, int& equilibriumQuantity)
 {
     vector<TreeNode*> v;
