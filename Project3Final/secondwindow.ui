@@ -408,7 +408,7 @@ background-color:rgb(43,45,56);
    <widget class="QLineEdit" name="lineEdit">
     <property name="geometry">
      <rect>
-      <x>280</x>
+      <x>80</x>
       <y>0</y>
       <width>601</width>
       <height>111</height>
@@ -630,10 +630,13 @@ background-color:rgb(43,45,56);
 background: transparent;</string>
     </property>
     <property name="text">
-     <string>Options:</string>
+     <string>Choose A Task To Perform:</string>
     </property>
     <property name="frame">
      <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
     <property name="readOnly">
      <bool>true</bool>
@@ -649,7 +652,7 @@ background: transparent;</string>
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

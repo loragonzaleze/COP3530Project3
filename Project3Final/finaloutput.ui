@@ -21,7 +21,7 @@
     <property name="geometry">
      <rect>
       <x>550</x>
-      <y>20</y>
+      <y>30</y>
       <width>171</width>
       <height>51</height>
      </rect>
@@ -85,8 +85,8 @@ background-color:rgb(43,45,56);
    <widget class="QLineEdit" name="lineEdit_2">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>20</y>
+      <x>70</x>
+      <y>30</y>
       <width>151</width>
       <height>51</height>
      </rect>
@@ -110,6 +110,9 @@ background: transparent;</string>
     <property name="frame">
      <bool>false</bool>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
     <property name="readOnly">
      <bool>true</bool>
     </property>
@@ -117,8 +120,8 @@ background: transparent;</string>
    <widget class="QLineEdit" name="lineEdit_3">
     <property name="geometry">
      <rect>
-      <x>310</x>
-      <y>20</y>
+      <x>330</x>
+      <y>30</y>
       <width>151</width>
       <height>51</height>
      </rect>
@@ -146,12 +149,12 @@ background: transparent;</string>
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_5">
+   <widget class="QLineEdit" name="avlHeader">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>100</y>
-      <width>91</width>
+      <x>0</x>
+      <y>150</y>
+      <width>271</width>
       <height>31</height>
      </rect>
     </property>
@@ -160,6 +163,9 @@ background: transparent;</string>
       <family>Segoe UI Semilight</family>
       <pointsize>16</pointsize>
      </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
     <property name="styleSheet">
      <string notr="true">color: #c5cbd6;
@@ -170,13 +176,19 @@ background: transparent;</string>
     </property>
     <property name="frame">
      <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_6">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>280</y>
+      <y>390</y>
       <width>251</width>
       <height>31</height>
      </rect>
@@ -186,6 +198,9 @@ background: transparent;</string>
       <family>Segoe UI Semilight</family>
       <pointsize>16</pointsize>
      </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
     <property name="styleSheet">
      <string notr="true">color: #c5cbd6;
@@ -197,75 +212,15 @@ background: transparent;</string>
     <property name="frame">
      <bool>false</bool>
     </property>
-   </widget>
-   <widget class="QFrame" name="frame">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>20</y>
-      <width>16</width>
-      <height>521</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(66, 65, 71);
-border: transparent;
-</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-   </widget>
-   <widget class="QFrame" name="frame_2">
-    <property name="geometry">
-     <rect>
-      <x>510</x>
-      <y>20</y>
-      <width>16</width>
-      <height>521</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(66, 65, 71);
-border: transparent;
-</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-   </widget>
-   <widget class="QFrame" name="frame_3">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>70</y>
-      <width>721</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(66, 65, 71);
-border: transparent;
-</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_7">
     <property name="geometry">
      <rect>
       <x>280</x>
-      <y>280</y>
+      <y>390</y>
       <width>251</width>
       <height>31</height>
      </rect>
@@ -276,6 +231,9 @@ border: transparent;
       <pointsize>16</pointsize>
      </font>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
     <property name="styleSheet">
      <string notr="true">color: #c5cbd6;
 background: transparent;</string>
@@ -285,13 +243,16 @@ background: transparent;</string>
     </property>
     <property name="frame">
      <bool>false</bool>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_8">
     <property name="geometry">
      <rect>
       <x>530</x>
-      <y>280</y>
+      <y>390</y>
       <width>251</width>
       <height>31</height>
      </rect>
@@ -301,6 +262,9 @@ background: transparent;</string>
       <family>Segoe UI Semilight</family>
       <pointsize>16</pointsize>
      </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
     <property name="styleSheet">
      <string notr="true">color: #c5cbd6;
@@ -312,13 +276,16 @@ background: transparent;</string>
     <property name="frame">
      <bool>false</bool>
     </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_9">
+   <widget class="QLineEdit" name="BTreeHeader">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>100</y>
-      <width>91</width>
+      <x>270</x>
+      <y>150</y>
+      <width>251</width>
       <height>31</height>
      </rect>
     </property>
@@ -327,6 +294,9 @@ background: transparent;</string>
       <family>Segoe UI Semilight</family>
       <pointsize>16</pointsize>
      </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
     <property name="styleSheet">
      <string notr="true">color: #c5cbd6;
@@ -338,13 +308,19 @@ background: transparent;</string>
     <property name="frame">
      <bool>false</bool>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_10">
+   <widget class="QLineEdit" name="hashMapHeader">
     <property name="geometry">
      <rect>
-      <x>600</x>
-      <y>100</y>
-      <width>91</width>
+      <x>510</x>
+      <y>150</y>
+      <width>271</width>
       <height>31</height>
      </rect>
     </property>
@@ -353,6 +329,9 @@ background: transparent;</string>
       <family>Segoe UI Semilight</family>
       <pointsize>16</pointsize>
      </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
     <property name="styleSheet">
      <string notr="true">color: #c5cbd6;
@@ -364,26 +343,413 @@ background: transparent;</string>
     <property name="frame">
      <bool>false</bool>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
    </widget>
-   <widget class="QFrame" name="frame_4">
+   <widget class="QLineEdit" name="avlFTime">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>50</x>
+      <y>440</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Historic</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+border: 2px solid rgb(37, 39, 48);
+border-radius: 20px;
+color: #6c7078;
+padding-left: 20px;
+padding-right: 20px;
+background-color:rgb(34,36,44);
+}
+QLineEdit:hover{
+border: 2px solid rgb(48,50,62);
+}</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="BTreeFTime">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>440</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Historic</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+border: 2px solid rgb(37, 39, 48);
+border-radius: 20px;
+color: #6c7078;
+padding-left: 20px;
+padding-right: 20px;
+background-color:rgb(34,36,44);
+}
+QLineEdit:hover{
+border: 2px solid rgb(48,50,62);
+}</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="HashMapFTime">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>440</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Historic</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+border: 2px solid rgb(37, 39, 48);
+border-radius: 20px;
+color: #6c7078;
+padding-left: 20px;
+padding-right: 20px;
+background-color:rgb(34,36,44);
+}
+QLineEdit:hover{
+border: 2px solid rgb(48,50,62);
+}</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="avlTreeOutput">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>200</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Historic</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+border: 2px solid rgb(37, 39, 48);
+border-radius: 20px;
+color: #6c7078;
+padding-left: 20px;
+padding-right: 20px;
+background-color:rgb(34,36,44);
+}
+QLineEdit:hover{
+border: 2px solid rgb(48,50,62);
+}</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="BTreeOutput">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>200</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Historic</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+border: 2px solid rgb(37, 39, 48);
+border-radius: 20px;
+color: #6c7078;
+padding-left: 20px;
+padding-right: 20px;
+background-color:rgb(34,36,44);
+}
+QLineEdit:hover{
+border: 2px solid rgb(48,50,62);
+}</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="hashMapOutput">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>200</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Historic</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+border: 2px solid rgb(37, 39, 48);
+border-radius: 20px;
+color: #6c7078;
+padding-left: 20px;
+padding-right: 20px;
+background-color:rgb(34,36,44);
+}
+QLineEdit:hover{
+border: 2px solid rgb(48,50,62);
+}</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="avlTreeQuantity">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>310</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Historic</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+border: 2px solid rgb(37, 39, 48);
+border-radius: 20px;
+color: #6c7078;
+padding-left: 20px;
+padding-right: 20px;
+background-color:rgb(34,36,44);
+}
+QLineEdit:hover{
+border: 2px solid rgb(48,50,62);
+}</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="hashMapQuantity">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>310</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Historic</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+border: 2px solid rgb(37, 39, 48);
+border-radius: 20px;
+color: #6c7078;
+padding-left: 20px;
+padding-right: 20px;
+background-color:rgb(34,36,44);
+}
+QLineEdit:hover{
+border: 2px solid rgb(48,50,62);
+}</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="BTreeQuantity">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>310</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Historic</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+border: 2px solid rgb(37, 39, 48);
+border-radius: 20px;
+color: #6c7078;
+padding-left: 20px;
+padding-right: 20px;
+background-color:rgb(34,36,44);
+}
+QLineEdit:hover{
+border: 2px solid rgb(48,50,62);
+}</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="avlHeaderLow">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
       <y>260</y>
-      <width>721</width>
-      <height>16</height>
+      <width>271</width>
+      <height>41</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Semilight</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::WheelFocus</enum>
+    </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(66, 65, 71);
-border: transparent;
-</string>
+     <string notr="true">color: #c5cbd6;
+background: transparent;</string>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
+    <property name="text">
+     <string>Output:</string>
     </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
+    <property name="frame">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="BTreeHeaderLow">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>270</y>
+      <width>271</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Semilight</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #c5cbd6;
+background: transparent;</string>
+    </property>
+    <property name="text">
+     <string>Output:</string>
+    </property>
+    <property name="frame">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="hashHeaderLow">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>270</y>
+      <width>271</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Semilight</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #c5cbd6;
+background: transparent;</string>
+    </property>
+    <property name="text">
+     <string>Output:</string>
+    </property>
+    <property name="frame">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

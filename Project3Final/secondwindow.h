@@ -7,6 +7,9 @@
 #include "enterpricepoint.h"
 #include "supplycurveeqn.h"
 #include "enterpmc.h"
+#include "avltree.h"
+#include "hashmap.h"
+#include "b_plus_tree.h"
 
 namespace Ui {
 class SecondWindow;
@@ -19,6 +22,8 @@ class SecondWindow : public QMainWindow
 public:
     explicit SecondWindow(QWidget *parent = nullptr);
     ~SecondWindow();
+    SecondWindow(QWidget *parent, AVLTree avl, HashMap hashmap, B_Plus_Tree btree);
+
 
 private slots:
 
@@ -32,6 +37,9 @@ private slots:
 
 private:
     Ui::SecondWindow *ui;
+    AVLTree avl;
+    HashMap hashmap;
+    B_Plus_Tree btree;
     enterPricePoint *p;
     enterPMC *pmc;
     supplyCurveEqn *mc;

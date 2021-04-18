@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/data">
+        <file>data/A_Plain_Old_Smartphone.csv</file>
+        <file>data/Flying_Car.csv</file>
+        <file>data/Invisible_Ink_Printer.csv</file>
+        <file>data/Success_Guide_For_COP3530.csv</file>
+    </qresource>
+    <qresource prefix="/img">
+        <file>C:/Users/Bruce Maddux/Desktop/COP3530/graphbackground.JPG</file>
+    </qresource>
+</RCC>

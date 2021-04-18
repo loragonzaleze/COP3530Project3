@@ -20,9 +20,9 @@
    <widget class="QLineEdit" name="lineEdit">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>150</x>
       <y>50</y>
-      <width>601</width>
+      <width>471</width>
       <height>111</height>
      </rect>
     </property>
@@ -247,6 +247,9 @@ background: transparent;</string>
     <property name="frame">
      <bool>false</bool>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
     <property name="readOnly">
      <bool>true</bool>
     </property>
@@ -257,8 +260,8 @@ background: transparent;</string>
    <widget class="QLineEdit" name="lineEdit_2">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>180</y>
+      <x>80</x>
+      <y>190</y>
       <width>151</width>
       <height>51</height>
      </rect>
@@ -289,8 +292,8 @@ background: transparent;</string>
    <widget class="QLineEdit" name="lineEdit_3">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>180</y>
+      <x>340</x>
+      <y>190</y>
       <width>151</width>
       <height>51</height>
      </rect>
@@ -321,8 +324,8 @@ background: transparent;</string>
    <widget class="QLineEdit" name="lineEdit_4">
     <property name="geometry">
      <rect>
-      <x>530</x>
-      <y>180</y>
+      <x>590</x>
+      <y>190</y>
       <width>151</width>
       <height>51</height>
      </rect>
@@ -359,8 +362,139 @@ background: transparent;</string>
       <height>21</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{background-color: rgb(37, 39, 48);
+border-radius: 20px;
+color: #c5cbd6;
+border: 2px solid rgb(48,50,62);
+}
+QPushButton:hover{
+border: 2px solid rgb(37, 39, 48);
+}
+QPushButton:pressed{
+border: 2px solid rgb(85,170,255);
+background-color:rgb(43,45,56);
+}</string>
+    </property>
     <property name="text">
      <string>Next</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="avlTime">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>250</y>
+      <width>201</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Historic</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+border: 2px solid rgb(37, 39, 48);
+border-radius: 20px;
+color: #6c7078;
+padding-left: 20px;
+padding-right: 20px;
+background-color:rgb(34,36,44);
+}
+QLineEdit:hover{
+border: 2px solid rgb(48,50,62);
+}</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="hashMapTime">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>250</y>
+      <width>201</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Historic</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+border: 2px solid rgb(37, 39, 48);
+border-radius: 20px;
+color: #6c7078;
+padding-left: 20px;
+padding-right: 20px;
+background-color:rgb(34,36,44);
+}
+QLineEdit:hover{
+border: 2px solid rgb(48,50,62);
+}</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="BTreeTime">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>250</y>
+      <width>201</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI Historic</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+border: 2px solid rgb(37, 39, 48);
+border-radius: 20px;
+color: #6c7078;
+padding-left: 20px;
+padding-right: 20px;
+background-color:rgb(34,36,44);
+}
+QLineEdit:hover{
+border: 2px solid rgb(48,50,62);
+}</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

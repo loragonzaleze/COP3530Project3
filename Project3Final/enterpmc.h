@@ -3,7 +3,10 @@
 #pragma once
 
 #include <QMainWindow>
-#include "finaloutput.h"
+#include "finaloutputpmc.h"
+#include "avltree.h"
+#include "hashmap.h"
+#include "b_plus_tree.h"
 
 namespace Ui {
 class enterPMC;
@@ -16,6 +19,7 @@ class enterPMC : public QMainWindow
 public:
     explicit enterPMC(QWidget *parent = nullptr);
     ~enterPMC();
+    enterPMC(QWidget *parent, AVLTree avl, HashMap hashmap, B_Plus_Tree btree);
 
 private slots:
 
@@ -27,12 +31,20 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void openNew();
+
 private:
+    AVLTree avl;
+    HashMap hashmap;
+    B_Plus_Tree btree;
     Ui::enterPMC *ui;
     float p;
     float m;
     float c;
-    finalOutput *finOutput;
+    bool pFilled = false;
+    bool mFilled = false;
+    bool cFilled = false;
+    finaloutputPMC *finOutput;
 };
 
 #endif // ENTERPMC_H

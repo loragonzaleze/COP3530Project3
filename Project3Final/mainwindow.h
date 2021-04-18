@@ -5,6 +5,10 @@
 #include <QMainWindow>
 #include "secondwindow.h"
 #include "timetaken.h"
+#include "avltree.h"
+#include <vector>
+#include "hashmap.h"
+#include "b_plus_tree.h"
 using namespace std;
 
 QT_BEGIN_NAMESPACE
@@ -18,18 +22,22 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    string getCSV();
+    AVLTree avl;
+    HashMap hashmap;
+    B_Plus_Tree btree;
 
 private slots:
 
     void on_lineEdit_2_returnPressed();
 
-    string getCSV();
-
-
 
     void on_comboBox_textActivated(const QString &arg1);
 
 private:
+    void openNew();
+    void GetDataFromFile(string filePath, vector<float> &prices);
+    vector<float> prices;
     Ui::MainWindow *ui;
     QString currentFile = "";
     timeTaken *time;
