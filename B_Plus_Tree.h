@@ -19,7 +19,6 @@ class B_Plus_Tree {
 
     const int maxChildren = 4;
     int maxKeys = maxChildren - 1;
-    unordered_map<float, int> quantities;
 
     Node* root;
 
