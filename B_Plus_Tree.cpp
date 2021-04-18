@@ -206,7 +206,6 @@ void B_Plus_Tree::recursiveInsert(Node* node, Node* prev, float price) {
 //Called whenever the current node is not full
 Node* B_Plus_Tree::insertNonFull(Node* node, float price) {
     node->prices.push_back({ price, 1 });
-    quantities[price] = 1;
     sort(node->prices.begin(), node->prices.end());
     return node;
 }
