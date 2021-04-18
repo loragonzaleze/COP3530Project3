@@ -6,6 +6,7 @@ B_Plus_Tree::B_Plus_Tree() {
 
 }
 
+
 B_Plus_Tree::B_Plus_Tree(float price) {
     Node* newRoot = new Node();
     newRoot->prices.push_back({ price, 1});
@@ -13,6 +14,9 @@ B_Plus_Tree::B_Plus_Tree(float price) {
     root = newRoot;
 }
 
+//Determine what type of insertion needs to be done, if needed
+//Verifies that a price is not already in the tree, and if it, will simply add 1 to the price.
+//Will determine what type of insertion needs to be done depending on the size of the node.
 void B_Plus_Tree::insert(float price) {
     if (root == nullptr) {
         Node* newRoot = new Node();
@@ -29,7 +33,7 @@ void B_Plus_Tree::insert(float price) {
     currNode = returned[0];
     prev = returned[1];
 
-    if (currNode == nullptr) { //already in tree
+    if (currNode == nullptr) { //If a nullptr is returned, that means price is already in tree, so no insertion is done
         return;
     }
     if (currNode->prices.size() < maxKeys) {
@@ -40,6 +44,11 @@ void B_Plus_Tree::insert(float price) {
     }
 }
 
+//Function to find any inputted node's parent
+//Used whenever doing a recursive insertion that requires balancing the tree as the program
+//makes its way up the recursive stack
+//Taken from geekforgeeks.com
+//Citation: https://www.geeksforgeeks.org/insertion-in-a-b-tree/
 Node* B_Plus_Tree::findParent(Node* node, Node* target, float price) {
     Node* parent = nullptr;
     if (node == nullptr || node->leaf) {
@@ -57,8 +66,14 @@ Node* B_Plus_Tree::findParent(Node* node, Node* target, float price) {
         }
     }
     return parent;
-} //remember to cite this
+}
 
+//If the node to be inserted is at is full, this function will be called.
+//It will create a new node, and edit the current node to only have half of the values. it will also assign
+//new next pointers to the new child node
+//If the current node is the root node, it will create a new root node, and assign as children the current node and the
+//new child.
+//Otherwise it will perform a recursive insert.
 Node* B_Plus_Tree::insertFull(Node* node, Node* prev, float price) {
     Node* newChild = new Node();
     int mid = (node->prices.size() + 1) / 2; //splits nodes
@@ -90,6 +105,7 @@ Node* B_Plus_Tree::insertFull(Node* node, Node* prev, float price) {
 
 }
 
+//This function will recursively insert nodes, and split them as needed.
 void B_Plus_Tree::recursiveInsert(Node* node, Node* prev, float price) {
     if (prev->prices.size() < maxKeys) { //if parent is not full
         int pos = 0;
@@ -130,8 +146,7 @@ void B_Plus_Tree::recursiveInsert(Node* node, Node* prev, float price) {
         children = prev->children;
         children.insert(children.begin() + pos + 1, node); //inserts nodes in correct spot
 
-        //determine where to point:
-
+        //pushes new assigned children into node
         prev->children = { nullptr, nullptr, nullptr, nullptr };
         for (int k = 0; k < 3; k++) {
             prev->children[k] = children[k];
@@ -182,12 +197,13 @@ void B_Plus_Tree::recursiveInsert(Node* node, Node* prev, float price) {
             root = newRoot;
         }
         else {
-            recursiveInsert(newNode, findParent(root, prev, val), val);
-        }
+            recursiveInsert(newNode, findParent(root, prev, val), val); //will continue calling itself until it reaches
+        }                                                                    // an non-full node or root node
     }
 
 }
 
+//Called whenever the current node is not full
 Node* B_Plus_Tree::insertNonFull(Node* node, float price) {
     node->prices.push_back({ price, 1 });
     quantities[price] = 1;
@@ -195,6 +211,9 @@ Node* B_Plus_Tree::insertNonFull(Node* node, float price) {
     return node;
 }
 
+//This function will find the correct place to insert a given price.
+//Once found it will return the node at which to insert it at.
+//The node returned will always be a root node.
 vector<Node*>B_Plus_Tree::findInsertion(Node* node, Node* prev, float price) {
     Node* currNode = node;
     bool changed = false;
@@ -232,6 +251,7 @@ vector<Node*>B_Plus_Tree::findInsertion(Node* node, Node* prev, float price) {
     return { currNode, prev };
 }
 
+//Will find the leaf node that contains the given price
 Node* B_Plus_Tree::findNode(Node* node, float price) {
     Node* currNode = node;
     bool changed = false;
@@ -266,6 +286,7 @@ Node* B_Plus_Tree::findNode(Node* node, float price) {
     return currNode;
 }
 
+//Function that will get the end of the list by going to the last leaf node
 Node* B_Plus_Tree::GetTail()
 {
     Node* node = root;
@@ -277,11 +298,14 @@ Node* B_Plus_Tree::GetTail()
     return node;
 }
 
+//Function called by the UI
 void B_Plus_Tree::LoadDataSet(float pricePoint)
 {
     insert(pricePoint);
 }
 
+//Sums up the quantities in all nodes that are greater than a given price point.
+//Returns the total quantities.
 int B_Plus_Tree::FindQuantityDemanded(float pricePoint)
 {
     int priceAsInt = (int)(100 * pricePoint + 0.5);
@@ -305,6 +329,7 @@ int B_Plus_Tree::FindQuantityDemanded(float pricePoint)
     return quantity;
 }
 
+//Determine the amount of shortage or surplus there would be depending on the inputted m, c, and price.
 int B_Plus_Tree::PrintMarketStatus(float m, float c, float pricePoint)
 {
     int qtyDemanded = FindQuantityDemanded(pricePoint);
@@ -313,6 +338,7 @@ int B_Plus_Tree::PrintMarketStatus(float m, float c, float pricePoint)
     return status;
 }
 
+//Function that returns the Equilibrium price point.
 void B_Plus_Tree::FindEquilibriumPricePoint(float m, float c, float& equilibriumPrice, int& equilibriumQuantity)
 {
     int qd = 0;
